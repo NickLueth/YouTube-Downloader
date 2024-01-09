@@ -4,8 +4,11 @@
 
 from tkinter import *
 from tkinter import filedialog
-from moviepy.editor import VideoFileClip
-from pytube import YouTube
+try:
+    from moviepy.editor import VideoFileClip
+    from pytube import YouTube
+except ImportError as e:
+    screen.title(f'Error: {str(e)}. Please install the required libraries.')
 import shutil
 
 
@@ -23,12 +26,15 @@ def download_file():
     user_path = path_label.cget("text")
     screen.title('Downloading...')
     # Download Video
-    mp4_video = YouTube(get_link).streams.get_highest_resolution().download()
-    vid_clip = VideoFileClip(mp4_video)
-    vid_clip.close()
-    # move file to selected directory
-    shutil.move(mp4_video, user_path)
-    screen.title('Download Complete! Download Another File...')
+    try:
+        mp4_video = YouTube(get_link).streams.get_highest_resolution().download()
+        vid_clip = VideoFileClip(mp4_video)
+        vid_clip.close()
+        # move file to selected directory
+        shutil.move(mp4_video, user_path)
+        screen.title('Download Complete! Download Another File...')
+    except Exception as e:
+        screen.title(f'Error: {str(e)}')
 
 
 # Canvas
