@@ -1,5 +1,5 @@
 # Created by Nick Lueth
-# 6/27/2022
+# Last edited: 1/9/2024
 # Credits to MacLinz Universal for the inspiration
 
 from tkinter import *
